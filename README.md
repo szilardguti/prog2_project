@@ -1,9 +1,9 @@
-# prog2_projekt
+# prog2_project
 main project work for prog2 at UD
 
 
 
-sum of the project:
+# sum of the project:
 RPG/Dungeon Crawl/Turn based pixelated video game, where u can take on an adventure with a D&D esque party.
 Made in unity and in C# (hopefully).
 Has LAN and/or online multiplayer.
