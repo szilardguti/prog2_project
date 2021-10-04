@@ -1,11 +1,27 @@
-# prog2_project
-main project work for prog2 at UD
+![Game Logo](logo.png)
 
+## *main project work for prog2 at **UD***
+*****
+##### *Made in Unity*
 
+### Initial idea
+Take up on an adventure, where u can choose the path, that your party of adventurers take.
+Adventure, roll the dice and lvl up like in your favorite fantasy books (minus cutting your fingers).
+Choose your own role in the party and enjoy it with your friends or play as all of them and don't let
+anyone ruin your game!
 
-# sum of the project:
-RPG/Dungeon Crawl/Turn based pixelated video game, where u can take on an adventure with a D&D esque party.
-Made in unity and in C# (hopefully).
-Has LAN and/or online multiplayer.
-Combat system would be turn based with minigames or another special features.
-Story might be based on already excisting 'KJK' books
+### First priority:
+* basic menu with some options
+* one adventurer on one map
+* roll a dice
+* basic fight and gameplay functions ( **ROLL MOAR** )
+
+### Second priority:
+* multiple adventurers and more adventures
+* sound and nicer graphics
+* loot and drops
+
+### Third priority:
+* networking
+* infite dungeons or adventures
+* actually play the game
