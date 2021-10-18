@@ -19,8 +19,8 @@ public class Dice : MonoBehaviour {
         diceSides = Resources.LoadAll<Sprite>("DiceSides/");
 	}
 	
-    // If you left click over the dice then RollTheDice coroutine is started
-    private void OnMouseDown()
+    // If the script gets called it runs the dice roll
+    public void Player1AttackMove()
     {
         StartCoroutine("RollTheDice");
     }
