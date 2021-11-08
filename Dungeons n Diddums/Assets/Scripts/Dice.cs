@@ -9,6 +9,8 @@ public class Dice : MonoBehaviour {
     // Reference to sprite renderer to change sprites
     private SpriteRenderer rend;
 
+    public int diceResult;
+
 	// Use this for initialization
 	private void Start () {
 
@@ -20,7 +22,7 @@ public class Dice : MonoBehaviour {
 	}
 	
     // If the script gets called it runs the dice roll
-    public void Player1AttackMove()
+    public void Roll()
     {
         StartCoroutine("RollTheDice");
     }
@@ -52,6 +54,7 @@ public class Dice : MonoBehaviour {
         // Assigning final side so you can use this value later in your game
         // for player movement for example
         finalSide = randomDiceSide + 1;
+        diceResult = finalSide;
 
         // Show final dice value in Console
         Debug.Log(finalSide);

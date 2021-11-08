@@ -27,14 +27,14 @@ public class Player1Attack : MonoBehaviour
     {
         if (Input.GetKeyDown("space"))
         {
-            myDiceScript.Player1AttackMove();
+            myDiceScript.Roll();
             StartCoroutine("Attack");
         }
     }
 
     private IEnumerator Attack()
     {
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(1.5f);
         for (int i = 0; i < 3; i++)
         {
             rend.sprite = attackMoves[i];
