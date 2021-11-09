@@ -22,4 +22,9 @@ public class BattleHUD : MonoBehaviour
     {
         hpSlider.value = hp;
     }
+
+    public void NullHP()
+    {
+        hpSlider.value = 0;
+    }
 }
