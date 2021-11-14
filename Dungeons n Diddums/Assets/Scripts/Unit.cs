@@ -8,6 +8,7 @@ public class Unit : MonoBehaviour
 
     public int lvl;
     public int damage;
+    public int agility;
 
     public int maxHP;
     public int currHP;

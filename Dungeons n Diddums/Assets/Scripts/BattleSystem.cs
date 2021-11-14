@@ -10,7 +10,10 @@ public class BattleSystem : MonoBehaviour
     public Button attackButton;
     public ManageBattleStations battleStationManager;
 
-    public GameObject playerPrefab;
+    public GameObject warriorPrefab;
+    public GameObject rougePrefab;
+    public GameObject wizardPrefab;
+    public GameObject rangerPrefab;
     public GameObject enemyPrefab;
 
     // Only need the location so Transform is enough
@@ -31,7 +34,10 @@ public class BattleSystem : MonoBehaviour
     Unit enemyUnit;
 
 
-    public BattleHUD playerHUD;
+    public BattleHUD playerHUD1;
+    public BattleHUD playerHUD2;
+    public BattleHUD playerHUD3;
+    public BattleHUD playerHUD4;
     public BattleHUD enemyHUD1;
     public BattleHUD enemyHUD2;
     public BattleHUD enemyHUD3;
@@ -39,6 +45,7 @@ public class BattleSystem : MonoBehaviour
 
     List<Unit> Units = new List<Unit>();
     List<BattleHUD> HUDs = new List<BattleHUD>();
+    Queue<Unit> battleOrder = new Queue<Unit>();
     private int previousSelect = 4;
 
     // Start is called before the first frame update
@@ -50,7 +57,20 @@ public class BattleSystem : MonoBehaviour
 
     void SetupBattle()
     {
-        GameObject playerGO = Instantiate(playerPrefab, playerBattleStation1);
+        GameObject playerGO = Instantiate(wizardPrefab, playerBattleStation1);
+        playerUnit = playerGO.GetComponent<Unit>();
+        Units.Add(playerUnit);
+
+
+        playerGO = Instantiate(rangerPrefab, playerBattleStation2);
+        playerUnit = playerGO.GetComponent<Unit>();
+        Units.Add(playerUnit);
+
+        playerGO = Instantiate(rougePrefab, playerBattleStation3);
+        playerUnit = playerGO.GetComponent<Unit>();
+        Units.Add(playerUnit);
+
+        playerGO = Instantiate(warriorPrefab, playerBattleStation4);
         playerUnit = playerGO.GetComponent<Unit>();
         Units.Add(playerUnit);
 
@@ -70,7 +90,7 @@ public class BattleSystem : MonoBehaviour
         enemyUnit = enemyGO.GetComponent<Unit>();
         Units.Add(enemyUnit);
 
-        BattleHUD[] listOfBH = { playerHUD, enemyHUD1, enemyHUD2, enemyHUD3, enemyHUD4 };
+        BattleHUD[] listOfBH = { playerHUD1, playerHUD2, playerHUD3, playerHUD4, enemyHUD1, enemyHUD2, enemyHUD3, enemyHUD4 };
         HUDs.AddRange(listOfBH);
 
         for (int i = 0; i < Units.Count; i++)
@@ -123,9 +143,12 @@ public class BattleSystem : MonoBehaviour
 
         if (isDead)
         {
-            HUDs[correctIndex].SetHUD(enemyUnit);
+            HUDs[correctIndex].NullHP();
             //state = BattleState.WON;
-            Debug.Log("you killed a" + enemyUnit.unitName);
+            Debug.Log("you killed a " + enemyUnit.unitName);
+
+            state = BattleState.ENEMYTURN;
+            EnemyTurn();
             yield break;
         }
 
@@ -137,6 +160,7 @@ public class BattleSystem : MonoBehaviour
 
     IEnumerator EnemyAttack()
     {
+        playerUnit = Units[0];
         battleStationManager.Selected(playerUnit.transform.parent.gameObject.GetComponent<SelectBattleStation>());
         yield return new WaitForSeconds(0.5f);
 
@@ -148,13 +172,13 @@ public class BattleSystem : MonoBehaviour
 
         if (isDead)
         {
-            playerHUD.NullHP();
+            playerHUD1.NullHP();
             state = BattleState.LOST;
             Debug.Log("YOU LOST");
             yield break;
         }
 
-        playerHUD.SetHP(playerUnit.currHP);
+        playerHUD1.SetHP(playerUnit.currHP);
         state = BattleState.PLAYERTURN;
         PlayerTurn();
     }

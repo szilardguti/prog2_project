@@ -98,5 +98,6 @@ MonoBehaviour:
   unitName: Goblin
   lvl: 1
   damage: 2
+  agility: 7
   maxHP: 30
   currHP: 30

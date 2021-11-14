@@ -95,8 +95,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8dc2af4c41089014d8b25e3df7c9ee58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitName: Slayer
+  unitName: Warrior
   lvl: 99
   damage: 5
-  maxHP: 100
-  currHP: 100
+  agility: 4
+  maxHP: 120
+  currHP: 120
