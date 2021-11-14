@@ -17,6 +17,9 @@ public class ManageBattleStations : MonoBehaviour
     private List<SelectBattleStation> BSList = new List<SelectBattleStation>();
 
     public Unit ActiveUnit;
+    public Unit TurnUnit;
+    private SelectBattleStation unitHasTurn;
+
 
     // Start is called before the first frame update
     void Start()
@@ -42,11 +45,19 @@ public class ManageBattleStations : MonoBehaviour
         sBs.ShowBattleStation();
         foreach(var station in BSList)
         {
-            if(station != sBs)
+            if(station != sBs && station != unitHasTurn)
             {
                 station.HideBattleStation();
             }
+            if (station == sBs && station == unitHasTurn)
+                station.ShowBattleStation(true);
         }
+    }
+
+    public void TurnSelected(Unit unit)
+    {
+        unitHasTurn = unit.transform.parent.gameObject.GetComponent<SelectBattleStation>();
+        unitHasTurn.ShowBattleStation(true);
     }
 
     public Unit GetActiveUnit()

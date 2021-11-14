@@ -9,6 +9,7 @@ public class Unit : MonoBehaviour
     public int lvl;
     public int damage;
     public int agility;
+    private int speed;
 
     public int maxHP;
     public int currHP;
@@ -20,5 +21,20 @@ public class Unit : MonoBehaviour
             return true;
 
         return false;
+    }
+
+    public void setSpeed()
+    {
+        speed = agility * 10;
+    }
+
+    public int getSpeed()
+    {
+        return speed;
+    }
+
+    public void tookTurn()
+    {
+        speed -= 20;
     }
 }

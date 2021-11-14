@@ -9,6 +9,7 @@ public class BattleSystem : MonoBehaviour
     public Dice myDice;
     public Button attackButton;
     public ManageBattleStations battleStationManager;
+    public BattleOrderManager battleOrderManager;
 
     public GameObject warriorPrefab;
     public GameObject rougePrefab;
@@ -30,8 +31,10 @@ public class BattleSystem : MonoBehaviour
     //Which state the Battle is in
     public BattleState state;
 
+
     Unit playerUnit;
     Unit enemyUnit;
+    Unit onTurnUnit;
 
 
     public BattleHUD playerHUD1;
@@ -45,7 +48,6 @@ public class BattleSystem : MonoBehaviour
 
     List<Unit> Units = new List<Unit>();
     List<BattleHUD> HUDs = new List<BattleHUD>();
-    Queue<Unit> battleOrder = new Queue<Unit>();
     private int previousSelect = 4;
 
     // Start is called before the first frame update
@@ -60,7 +62,6 @@ public class BattleSystem : MonoBehaviour
         GameObject playerGO = Instantiate(wizardPrefab, playerBattleStation1);
         playerUnit = playerGO.GetComponent<Unit>();
         Units.Add(playerUnit);
-
 
         playerGO = Instantiate(rangerPrefab, playerBattleStation2);
         playerUnit = playerGO.GetComponent<Unit>();
@@ -98,23 +99,38 @@ public class BattleSystem : MonoBehaviour
             HUDs[i].SetHUD(Units[i]);
         }
 
+        battleOrderManager.SetupBattleOrder(Units);
+        onTurnUnit = battleOrderManager.GetOnTurnUnit();
+        battleStationManager.TurnSelected(onTurnUnit);
 
         attackButton.GetComponent<Button>();
 
-        state = BattleState.PLAYERTURN;
-        PlayerTurn();
+
+        if(Units.IndexOf(onTurnUnit) < 4)
+        {
+            state = BattleState.PLAYERTURN;
+            PlayerTurn();
+        }
+        else
+        {
+            state = BattleState.ENEMYTURN;
+            EnemyTurn();
+        }
+
     }
 
     void PlayerTurn()
     {
-        Debug.Log("Player's turn!");
+        Debug.Log(onTurnUnit.unitName + "'s turn!");
         attackButton.interactable = true;
+
+        battleStationManager.TurnSelected(onTurnUnit);
         battleStationManager.Selected(Units[previousSelect].transform.parent.gameObject.GetComponent<SelectBattleStation>());
     }
 
     void EnemyTurn()
     {
-        Debug.Log("Enemy's turn!");
+        Debug.Log(onTurnUnit.unitName + "'s turn!");
         StartCoroutine("EnemyAttack");
     }
 
@@ -128,12 +144,13 @@ public class BattleSystem : MonoBehaviour
 
     IEnumerator PlayerAttack()
     {
-         myDice.Roll();
+        playerUnit = onTurnUnit;
+
         enemyUnit = battleStationManager.GetActiveUnit();
 
-        int correctIndex;
-        for(correctIndex = 0; correctIndex < Units.Count; correctIndex++)
-            if (enemyUnit == Units[correctIndex]) break;
+        myDice.Roll();
+
+        int correctIndex = Units.IndexOf(enemyUnit);
 
         previousSelect = correctIndex;
 
@@ -152,34 +169,61 @@ public class BattleSystem : MonoBehaviour
             yield break;
         }
 
-        HUDs[correctIndex].SetHUD(enemyUnit);
+        HUDs[correctIndex].SetHP(enemyUnit.currHP);
 
-        state = BattleState.ENEMYTURN;
-        EnemyTurn();
+        onTurnUnit = battleOrderManager.GetOnTurnUnit();
+        if (Units.IndexOf(onTurnUnit) < 4)
+        {
+            state = BattleState.PLAYERTURN;
+            PlayerTurn();
+        }
+        else
+        {
+            state = BattleState.ENEMYTURN;
+            EnemyTurn();
+        }
     }
 
     IEnumerator EnemyAttack()
     {
-        playerUnit = Units[0];
+        enemyUnit = onTurnUnit;
+        playerUnit = Units[Random.Range(0,4)];
+
+        battleStationManager.TurnSelected(onTurnUnit);
         battleStationManager.Selected(playerUnit.transform.parent.gameObject.GetComponent<SelectBattleStation>());
+
         yield return new WaitForSeconds(0.5f);
 
         myDice.Roll();
 
         yield return new WaitForSeconds(1.5f);
 
+        int correctIndex = Units.IndexOf(playerUnit);
+
         bool isDead = playerUnit.takeDamage(myDice.diceResult + enemyUnit.damage);
 
         if (isDead)
         {
-            playerHUD1.NullHP();
+            HUDs[correctIndex].NullHP();
+            /*
             state = BattleState.LOST;
             Debug.Log("YOU LOST");
+            */
             yield break;
         }
 
-        playerHUD1.SetHP(playerUnit.currHP);
-        state = BattleState.PLAYERTURN;
-        PlayerTurn();
+        HUDs[correctIndex].SetHP(playerUnit.currHP);
+
+        onTurnUnit = battleOrderManager.GetOnTurnUnit();
+        if (Units.IndexOf(onTurnUnit) < 4)
+        {
+            state = BattleState.PLAYERTURN;
+            PlayerTurn();
+        }
+        else
+        {
+            state = BattleState.ENEMYTURN;
+            EnemyTurn();
+        }
     }
 }
