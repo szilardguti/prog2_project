@@ -11,18 +11,20 @@ public class SelectBattleStation : MonoBehaviour
         manager.Selected(this);
     }
 
-    public void ShowBattleStation(bool hasTurn = false)
+    public void ShowBattleStation(Color color)
     {
         this.gameObject.GetComponent<Renderer>().enabled = true;
-        if(hasTurn)
-            GetComponent<Renderer>().material.color = Color.black;
-        else
-            GetComponent<Renderer>().material.color = Color.red;
+        GetComponent<Renderer>().material.color = color;
     }
 
 
     public void HideBattleStation()
     {
         this.gameObject.GetComponent<Renderer>().enabled = false;
+    }
+
+    public void DoNotTrigger()
+    {
+        this.GetComponent<BoxCollider2D>().enabled = false;
     }
 }

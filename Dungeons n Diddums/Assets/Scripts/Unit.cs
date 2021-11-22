@@ -14,27 +14,38 @@ public class Unit : MonoBehaviour
     public int maxHP;
     public int currHP;
 
-    public bool takeDamage(int damg)
+    public bool isDead = false;
+    public bool isHero = false;
+
+    public bool TakeDamage(int damg)
     {
         currHP -= damg;
         if (currHP <= 0)
+        {
+            isDead = true;
             return true;
+        }
 
         return false;
     }
 
-    public void setSpeed()
+    public void SetSpeed()
     {
         speed = agility * 10;
     }
 
-    public int getSpeed()
+    public int GetSpeed()
     {
         return speed;
     }
 
-    public void tookTurn()
+    public void TookTurn()
     {
         speed -= 20;
+    }
+
+    public void ReturnTurn()
+    {
+        speed += 20;
     }
 }

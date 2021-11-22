@@ -15,7 +15,7 @@ public class BattleOrderManager : MonoBehaviour
     {
         foreach (var unit in Units)
         {
-            unit.setSpeed();
+            unit.SetSpeed();
         }
 
         OrderUnits = Units;
@@ -27,9 +27,9 @@ public class BattleOrderManager : MonoBehaviour
 
         for (int i = 0; i < 20; i++)
         {
-            OrderUnits = OrderUnits.OrderByDescending(s => s.getSpeed()).ToList();
+            OrderUnits = OrderUnits.OrderByDescending(s => s.GetSpeed()).ToList();
             battleOrder.Enqueue(OrderUnits[0]);
-            OrderUnits[0].tookTurn();
+            OrderUnits[0].TookTurn();
         }
 
     }
@@ -39,6 +39,27 @@ public class BattleOrderManager : MonoBehaviour
         if (battleOrder.Count < 11)
             RefreshBattleOrder();
 
+        SetText();
+
+        return battleOrder.Dequeue();
+    }
+
+    public void UnitDied (Unit dead)
+    {
+        OrderUnits.Remove(dead);
+
+        int sizeOfQueue = battleOrder.Count;
+        for (int i = 0; i < sizeOfQueue; i++)
+        {
+            battleOrder.Dequeue().ReturnTurn();
+        }
+
+        RefreshBattleOrder();
+        SetText();
+    }
+
+    private void SetText()
+    {
         string temp = "";
         foreach (var unit in battleOrder)
         {
@@ -46,7 +67,10 @@ public class BattleOrderManager : MonoBehaviour
         }
 
         orderText.text = temp;
+    }
 
-        return battleOrder.Dequeue();
+    public Unit PeekOnTurnUnit()
+    {
+        return battleOrder.Peek();
     }
 }

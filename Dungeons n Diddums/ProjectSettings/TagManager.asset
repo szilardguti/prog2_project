@@ -41,3 +41,6 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: EscpMenu
+    uniqueID: 191529213
+    locked: 0

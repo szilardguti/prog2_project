@@ -20,6 +20,10 @@ public class ManageBattleStations : MonoBehaviour
     public Unit TurnUnit;
     private SelectBattleStation unitHasTurn;
 
+    private Color SelectedColor = Color.red;
+    private Color TurnColor = Color.black;
+
+
 
     // Start is called before the first frame update
     void Start()
@@ -42,7 +46,7 @@ public class ManageBattleStations : MonoBehaviour
     {
         ActiveUnit = sBs.transform.GetChild(0).GetComponent<Unit>();
 
-        sBs.ShowBattleStation();
+        sBs.ShowBattleStation(SelectedColor);
         foreach(var station in BSList)
         {
             if(station != sBs && station != unitHasTurn)
@@ -50,14 +54,14 @@ public class ManageBattleStations : MonoBehaviour
                 station.HideBattleStation();
             }
             if (station == sBs && station == unitHasTurn)
-                station.ShowBattleStation(true);
+                station.ShowBattleStation(TurnColor);
         }
     }
 
     public void TurnSelected(Unit unit)
     {
         unitHasTurn = unit.transform.parent.gameObject.GetComponent<SelectBattleStation>();
-        unitHasTurn.ShowBattleStation(true);
+        unitHasTurn.ShowBattleStation(TurnColor);
     }
 
     public Unit GetActiveUnit()
