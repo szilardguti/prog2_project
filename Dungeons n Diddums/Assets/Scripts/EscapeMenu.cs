@@ -8,7 +8,7 @@ public class EscapeMenu : MonoBehaviour
     private bool isShowing = false;
     void Update()
     {
-        if (Input.GetKeyDown("escape"))
+        if (Input.GetKeyDown("escape") && endPanel.GetComponent<EndOfGamePanel>().unSkippable == false)
         {
             isShowing = !isShowing;
             endPanel.SetActive(isShowing);

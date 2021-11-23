@@ -21,7 +21,7 @@ MonoBehaviour:
   m_ShowMode: 4
   m_Title: Project
   m_RootView: {fileID: 2}
-  m_MinSize: {x: 875, y: 392}
+  m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
   m_Maximized: 1
 --- !u!114 &2
@@ -395,20 +395,20 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 60fbffff
-      m_LastClickedID: -1184
-      m_ExpandedIDs: 2ab3ffff84b7ffff5cbbffff9ebeffff86deffffdcdeffff5efbffff3a3d0000763d0000a83d0000a85a0000c05a0000e85a000082610000aa6100000e8f0000268f00009c930000b6930000
+      m_SelectedIDs: de71ffff
+      m_LastClickedID: 0
+      m_ExpandedIDs: 8eb7fffff2b9ffff78faffff5efbffff60fbffff244100005c410000c0410000d24100003a4200005442000098420000ba420000d442000006430000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
-        m_Name: EndOfGamePanel
-        m_OriginalName: EndOfGamePanel
+        m_Name: EnemyBattleStation3
+        m_OriginalName: EnemyBattleStation3
         m_EditFieldRect:
           serializedVersion: 2
           x: 0
           y: 0
           width: 0
           height: 0
-        m_UserData: -8484
+        m_UserData: 16676
         m_IsWaitingForDelay: 0
         m_IsRenaming: 0
         m_OriginalEventType: 0
@@ -457,9 +457,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: -0.08369362, y: 0.092719145, z: 68.149536}
+    m_Target: {x: -0.5969885, y: 1.3563352, z: -0.58210266}
     speed: 2
-    m_Value: {x: -0.08369362, y: 0.092719145, z: 68.149536}
+    m_Value: {x: -0.5969885, y: 1.3563352, z: -0.58210266}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -509,9 +509,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 6.420305
+    m_Target: 6.8212605
     speed: 2
-    m_Value: 6.420305
+    m_Value: 6.8212605
   m_Ortho:
     m_Target: 1
     speed: 2
@@ -601,20 +601,20 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Prefabs
+    - Assets/Scripts
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Prefabs
+  - Assets/Scripts
   m_LastFoldersGridSize: -1
   m_LastProjectPath: C:\dev\Unity\projects\prog2_project\Dungeons n Diddums
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: fc930000
-    m_LastClickedID: 37884
-    m_ExpandedIDs: 000000002a4300002c4300002e43000030430000324300003443000036430000d69f000000ca9a3b
+    scrollPos: {x: 0, y: 60}
+    m_SelectedIDs: 94430000
+    m_LastClickedID: 17300
+    m_ExpandedIDs: 000000007443000076430000784300007a4300007c4300007e430000804300008843000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -642,7 +642,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 000000002a4300002c4300002e43000030430000324300003443000036430000
+    m_ExpandedIDs: 000000007443000076430000784300007a4300007c4300007e43000080430000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -667,10 +667,10 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: 5efbffff
-    m_LastClickedInstanceID: -1186
+    m_SelectedInstanceIDs: 72420000
+    m_LastClickedInstanceID: 17010
     m_HadKeyboardFocusLastEvent: 1
-    m_ExpandedInstanceIDs: c6230000ac3c0000044b000000000000b03c0000
+    m_ExpandedInstanceIDs: c6230000ac3c0000044b000000000000b03c0000523e0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -761,7 +761,7 @@ MonoBehaviour:
     m_PrefName: Preview_InspectorPreview
   m_PreviewWindow: {fileID: 0}
   m_LastInspectedObjectInstanceID: -1
-  m_LastVerticalScrollValue: 161
+  m_LastVerticalScrollValue: 0
 --- !u!114 &19
 MonoBehaviour:
   m_ObjectHideFlags: 52

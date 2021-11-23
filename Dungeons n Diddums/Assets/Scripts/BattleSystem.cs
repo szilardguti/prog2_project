@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public enum BattleState { START, PLAYERTURN, ENEMYTURN, WON, LOST }
 public class BattleSystem : MonoBehaviour
@@ -11,6 +12,7 @@ public class BattleSystem : MonoBehaviour
     public ManageBattleStations battleStationManager;
     public BattleOrderManager battleOrderManager;
     public EndOfGamePanel endOfGamePanel;
+    public TextMeshProUGUI levelCounter;
 
     public GameObject warriorPrefab;
     public GameObject rougePrefab;
@@ -51,6 +53,7 @@ public class BattleSystem : MonoBehaviour
     List<BattleHUD> HUDs = new List<BattleHUD>();
     private int previousSelect = 4;
     private int enemyKilled = 0, playerKilled = 0;
+    private int sceneLevel = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -59,59 +62,57 @@ public class BattleSystem : MonoBehaviour
         SetupBattle();
     }
 
-    void SetupBattle()
+    public void SetupBattle()
     {
-        GameObject playerGO = Instantiate(wizardPrefab, playerBattleStation1);
-        playerUnit = playerGO.GetComponent<Unit>();
-        Units.Add(playerUnit);
 
-        playerGO = Instantiate(rangerPrefab, playerBattleStation2);
-        playerUnit = playerGO.GetComponent<Unit>();
-        Units.Add(playerUnit);
-
-        playerGO = Instantiate(rougePrefab, playerBattleStation3);
-        playerUnit = playerGO.GetComponent<Unit>();
-        Units.Add(playerUnit);
-
-        playerGO = Instantiate(warriorPrefab, playerBattleStation4);
-        playerUnit = playerGO.GetComponent<Unit>();
-        Units.Add(playerUnit);
-
-        GameObject enemyGO = Instantiate(enemyPrefab, enemyBattleStation1);
-        enemyUnit = enemyGO.GetComponent<Unit>();
-        enemyUnit.unitName = enemyUnit.unitName + " 1";
-        Units.Add(enemyUnit);
-
-        enemyGO = Instantiate(enemyPrefab, enemyBattleStation2);
-        enemyUnit = enemyGO.GetComponent<Unit>();
-        enemyUnit.unitName = enemyUnit.unitName + " 2";
-        Units.Add(enemyUnit);
-
-        enemyGO = Instantiate(enemyPrefab, enemyBattleStation3);
-        enemyUnit = enemyGO.GetComponent<Unit>();
-        enemyUnit.unitName = enemyUnit.unitName + " 3";
-        Units.Add(enemyUnit);
-
-        enemyGO = Instantiate(enemyPrefab, enemyBattleStation4);
-        enemyUnit = enemyGO.GetComponent<Unit>();
-        enemyUnit.unitName = enemyUnit.unitName + " 4";
-        Units.Add(enemyUnit);
-
-        BattleHUD[] listOfBH = { playerHUD1, playerHUD2, playerHUD3, playerHUD4, enemyHUD1, enemyHUD2, enemyHUD3, enemyHUD4 };
-        HUDs.AddRange(listOfBH);
-
-        for (int i = 0; i < Units.Count; i++)
+        if (Units.Count == 0)
         {
-            HUDs[i].SetHUD(Units[i]);
+            GameObject playerGO = Instantiate(wizardPrefab, playerBattleStation1);
+            Units.Add(playerGO.GetComponent<Unit>());
+
+            playerGO = Instantiate(rangerPrefab, playerBattleStation2);
+            Units.Add(playerGO.GetComponent<Unit>());
+
+            playerGO = Instantiate(rougePrefab, playerBattleStation3);
+            Units.Add(playerGO.GetComponent<Unit>());
+
+            playerGO = Instantiate(warriorPrefab, playerBattleStation4);
+            Units.Add(playerGO.GetComponent<Unit>());
+
+            for (int i = 0; i < 4; i++)
+                Units.Add(null);
+
+            BattleHUD[] listOfBH = { playerHUD1, playerHUD2, playerHUD3, playerHUD4, enemyHUD1, enemyHUD2, enemyHUD3, enemyHUD4 };
+            HUDs.AddRange(listOfBH);
         }
 
+        enemyKilled = 0; playerKilled = 0;
+
+        SpawnRandomEnemies();
+
+
+        for (int i = 0; i < Units.Count; i++)
+            HUDs[i].SetHUD(Units[i]);
+
+
         battleOrderManager.SetupBattleOrder(Units);
+
+        for (int i = 0; i < Units.Count; i++)
+        { 
+            if (!Units[i].isDead)
+                Units[i].gameObject.transform.parent.GetComponent<SelectBattleStation>().DoTrigger();
+            else if (Units[i].isDead)
+                battleOrderManager.UnitDied(Units[i]);
+        }
+
         onTurnUnit = battleOrderManager.PeekOnTurnUnit();
         battleStationManager.TurnSelected(onTurnUnit);
 
+
         attackButton.GetComponent<Button>();
 
-
+        levelCounter.text = $"Level {++sceneLevel}";
+        
         NextTurn();
     }
 
@@ -175,11 +176,12 @@ public class BattleSystem : MonoBehaviour
 
             Debug.Log("you killed a " + enemyUnit.unitName);
 
+            KilledUnit(enemyUnit);
             if(++enemyKilled == 4)
             {
                 state = BattleState.WON;
                 Debug.Log("YOU WON");
-                endOfGamePanel.Activate("YOU WON!");
+                endOfGamePanel.Activate("YOU WON!", true);
                 yield break;
             }
         }
@@ -190,7 +192,13 @@ public class BattleSystem : MonoBehaviour
     IEnumerator EnemyAttack()
     {
         enemyUnit = onTurnUnit;
-        playerUnit = Units[Random.Range(0,4)];
+        while(true)
+        {
+            playerUnit = Units[Random.Range(0, 4)];
+            if (playerUnit.isDead == false)
+                break;
+        }
+
 
         battleStationManager.TurnSelected(onTurnUnit);
         battleStationManager.Selected(playerUnit.transform.parent.gameObject.GetComponent<SelectBattleStation>());
@@ -215,9 +223,10 @@ public class BattleSystem : MonoBehaviour
 
             playerUnit.gameObject.transform.parent.GetComponent<SelectBattleStation>().DoNotTrigger();
 
-            Debug.Log(enemyUnit.unitName + " has died!");
+            Debug.Log(playerUnit.unitName + " has died!");
 
-            if (++playerKilled == 4)
+            KilledUnit(playerUnit);
+            if (playerKilled == 4)
             {
                 state = BattleState.LOST;
                 Debug.Log("YOU LOST");
@@ -244,5 +253,36 @@ public class BattleSystem : MonoBehaviour
             state = BattleState.ENEMYTURN;
             EnemyTurn();
         }
+    }
+
+    private void SpawnRandomEnemies()
+    {
+        GameObject[] tempEnemies = Resources.LoadAll<GameObject>("EnemyPrefabs");
+        List<GameObject> enemies = new List<GameObject>();
+        enemies.AddRange(tempEnemies);
+
+        Transform[] enemyBattleStation = { enemyBattleStation1, enemyBattleStation2, enemyBattleStation3, enemyBattleStation4 };
+
+        for (int i = 0; i < 4; i++)
+        {
+            if (enemyBattleStation[i].childCount != 0)
+                enemyBattleStation[i].GetChild(sceneLevel - 1).gameObject.SetActive(false);
+
+            GameObject tempEnemyGO = Instantiate(enemies[Random.Range(0, 4)], enemyBattleStation[i]);
+            Units[4 + i] = tempEnemyGO.GetComponent<Unit>();
+        }
+    }
+
+    public int GetSceneLevel()
+    {
+        return sceneLevel;
+    }
+
+    void KilledUnit(Unit unit)
+    {
+        if (unit.isHero)
+            playerKilled += 1;
+        else
+            enemyKilled -= 1;
     }
 }

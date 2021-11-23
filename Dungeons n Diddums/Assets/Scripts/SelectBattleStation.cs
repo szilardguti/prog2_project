@@ -27,4 +27,9 @@ public class SelectBattleStation : MonoBehaviour
     {
         this.GetComponent<BoxCollider2D>().enabled = false;
     }
+
+    public void DoTrigger()
+    {
+        this.GetComponent<BoxCollider2D>().enabled = true;
+    }
 }

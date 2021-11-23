@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ManageBattleStations : MonoBehaviour
 {
+    public BattleSystem BattleSystem;
+
     public SelectBattleStation playerBattleStation1;
     public SelectBattleStation playerBattleStation2;
     public SelectBattleStation playerBattleStation3;
@@ -44,7 +46,11 @@ public class ManageBattleStations : MonoBehaviour
 
     public void Selected(SelectBattleStation sBs)
     {
-        ActiveUnit = sBs.transform.GetChild(0).GetComponent<Unit>();
+        if(sBs.name.Contains("Enemy"))
+            ActiveUnit = sBs.transform.GetChild(BattleSystem.GetSceneLevel()-1).GetComponent<Unit>();
+        else
+            ActiveUnit = sBs.transform.GetChild(0).GetComponent<Unit>();
+
 
         sBs.ShowBattleStation(SelectedColor);
         foreach(var station in BSList)

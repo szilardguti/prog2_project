@@ -18,6 +18,7 @@ public class BattleOrderManager : MonoBehaviour
             unit.SetSpeed();
         }
 
+        battleOrder = new Queue<Unit>();
         OrderUnits = Units;
         RefreshBattleOrder();
     }
@@ -31,7 +32,6 @@ public class BattleOrderManager : MonoBehaviour
             battleOrder.Enqueue(OrderUnits[0]);
             OrderUnits[0].TookTurn();
         }
-
     }
 
     public Unit GetOnTurnUnit()
@@ -39,9 +39,11 @@ public class BattleOrderManager : MonoBehaviour
         if (battleOrder.Count < 11)
             RefreshBattleOrder();
 
+        Unit temp = battleOrder.Dequeue();
+
         SetText();
 
-        return battleOrder.Dequeue();
+        return temp;
     }
 
     public void UnitDied (Unit dead)
