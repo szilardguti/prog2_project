@@ -70,6 +70,17 @@ public class ManageBattleStations : MonoBehaviour
         unitHasTurn.ShowBattleStation(TurnColor);
     }
 
+    public void RemoveShieldFrom(Unit unit)
+    {
+        for (int i = 0; i < unit.gameObject.transform.parent.childCount; i++)
+        {
+            if (unit.gameObject.transform.parent.GetChild(i).name.Contains("Shield"))
+            {
+                Destroy(unit.gameObject.transform.parent.GetChild(i).gameObject);
+            }
+        }
+    }
+
     public Unit GetActiveUnit()
     {
         return ActiveUnit;

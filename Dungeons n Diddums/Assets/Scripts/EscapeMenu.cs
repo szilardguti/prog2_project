@@ -11,6 +11,7 @@ public class EscapeMenu : MonoBehaviour
         if (Input.GetKeyDown("escape") && endPanel.GetComponent<EndOfGamePanel>().unSkippable == false)
         {
             isShowing = !isShowing;
+            endPanel.GetComponent<EndOfGamePanel>().endText.text = "PAUSE";
             endPanel.SetActive(isShowing);
         }
     }

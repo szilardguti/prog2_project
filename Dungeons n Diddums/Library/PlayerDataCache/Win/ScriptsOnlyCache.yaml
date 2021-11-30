@@ -1,9 +1,16 @@
 ScriptsOnlyBuild:
   usedScripts:
     Assembly-CSharp.dll:
+    - BattleHUD
+    - BattleOrderManager
+    - BattleSystem
     - Dice
+    - EndOfGamePanel
+    - EscapeMenu
     - MainMenu
-    - Player1Attack
+    - ManageBattleStations
+    - SelectBattleStation
+    - Unit
     Unity.2D.Animation.Editor.dll:
     - UnityEditor.U2D.Animation.BoneGizmo
     Unity.2D.Tilemap.Editor.dll:
@@ -31,6 +38,7 @@ ScriptsOnlyBuild:
     - UnityEngine.UI.CanvasScaler
     - UnityEngine.UI.GraphicRaycaster
     - UnityEngine.UI.Image
+    - UnityEngine.UI.Slider
   sceneClasses:
     Assets/Scenes/Game.unity:
     - Class: 1
@@ -52,9 +60,41 @@ ScriptsOnlyBuild:
     - Class: 104
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 12852}
+      Script: {instanceID: 11384}
     - Class: 114
-      Script: {instanceID: 14992}
+      Script: {instanceID: 11780}
+    - Class: 114
+      Script: {instanceID: 11900}
+    - Class: 114
+      Script: {instanceID: 12050}
+    - Class: 114
+      Script: {instanceID: 12262}
+    - Class: 114
+      Script: {instanceID: 12560}
+    - Class: 114
+      Script: {instanceID: 12906}
+    - Class: 114
+      Script: {instanceID: 13006}
+    - Class: 114
+      Script: {instanceID: 13434}
+    - Class: 114
+      Script: {instanceID: 13870}
+    - Class: 114
+      Script: {instanceID: 13988}
+    - Class: 114
+      Script: {instanceID: 14246}
+    - Class: 114
+      Script: {instanceID: 14370}
+    - Class: 114
+      Script: {instanceID: 14376}
+    - Class: 114
+      Script: {instanceID: 14556}
+    - Class: 114
+      Script: {instanceID: 15010}
+    - Class: 114
+      Script: {instanceID: 15106}
+    - Class: 114
+      Script: {instanceID: 15162}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 157
@@ -64,6 +104,12 @@ ScriptsOnlyBuild:
     - Class: 212
       Script: {instanceID: 0}
     - Class: 213
+      Script: {instanceID: 0}
+    - Class: 222
+      Script: {instanceID: 0}
+    - Class: 223
+      Script: {instanceID: 0}
+    - Class: 224
       Script: {instanceID: 0}
     Assets/Scenes/Menu.unity:
     - Class: 1
@@ -85,25 +131,27 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 11780}
     - Class: 114
-      Script: {instanceID: 11938}
+      Script: {instanceID: 11940}
     - Class: 114
-      Script: {instanceID: 12552}
+      Script: {instanceID: 12560}
     - Class: 114
-      Script: {instanceID: 12622}
+      Script: {instanceID: 12630}
     - Class: 114
-      Script: {instanceID: 13422}
+      Script: {instanceID: 13434}
     - Class: 114
-      Script: {instanceID: 13858}
+      Script: {instanceID: 13870}
     - Class: 114
-      Script: {instanceID: 13880}
+      Script: {instanceID: 13892}
     - Class: 114
-      Script: {instanceID: 14232}
+      Script: {instanceID: 14246}
     - Class: 114
-      Script: {instanceID: 14356}
+      Script: {instanceID: 14370}
     - Class: 114
-      Script: {instanceID: 14684}
+      Script: {instanceID: 14376}
     - Class: 114
-      Script: {instanceID: 15088}
+      Script: {instanceID: 14702}
+    - Class: 114
+      Script: {instanceID: 15106}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -111,6 +159,8 @@ ScriptsOnlyBuild:
     - Class: 157
       Script: {instanceID: 0}
     - Class: 196
+      Script: {instanceID: 0}
+    - Class: 212
       Script: {instanceID: 0}
     - Class: 213
       Script: {instanceID: 0}
@@ -225,6 +275,12 @@ ScriptsOnlyBuild:
     className: TMP_InputField
   - hash:
       serializedVersion: 2
+      Hash: c44b74d81dc8546e9bfa0b58fe4bc66d
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: SelectBattleStation
+  - hash:
+      serializedVersion: 2
       Hash: 7ab0e790220bdca831fdd886b339039d
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
@@ -267,6 +323,12 @@ ScriptsOnlyBuild:
     className: PhysicsRaycaster
   - hash:
       serializedVersion: 2
+      Hash: fa1a637f111b8eb812642db679714227
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: ManageBattleStations
+  - hash:
+      serializedVersion: 2
       Hash: bd3cf68c8964d3c66d1c43f4f98508c9
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
@@ -307,6 +369,12 @@ ScriptsOnlyBuild:
     assemblyName: Unity.2D.PixelPerfect.dll
     namespaceName: UnityEngine.U2D
     className: PixelPerfectCamera
+  - hash:
+      serializedVersion: 2
+      Hash: 16e8d882a4b586881f05191a1c20c80b
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: BattleSystem
   - hash:
       serializedVersion: 2
       Hash: 5ab533713adae59372fb3e10a585c186
@@ -375,10 +443,22 @@ ScriptsOnlyBuild:
     className: Player1Attack
   - hash:
       serializedVersion: 2
+      Hash: 1da27fcbe169a8f98a8fed3b52eb8365
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: BattleOrderManager
+  - hash:
+      serializedVersion: 2
       Hash: d4020bafcd3ccbb5601a6e6c8ac78be0
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
     className: ScrollRect
+  - hash:
+      serializedVersion: 2
+      Hash: 5830baba23029e1e8fbdfa751c7df5e6
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: EndOfGamePanel
   - hash:
       serializedVersion: 2
       Hash: c3d3430df9e3ea95e3e3d587961390fb
@@ -483,6 +563,12 @@ ScriptsOnlyBuild:
     className: Physics2DRaycaster
   - hash:
       serializedVersion: 2
+      Hash: 90e51dcf3339a9aefcc567fa88a6daf9
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: EscapeMenu
+  - hash:
+      serializedVersion: 2
       Hash: c1933cc0a2f4ff6eb13333347497beb3
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
@@ -507,10 +593,22 @@ ScriptsOnlyBuild:
     className: GraphicRaycaster
   - hash:
       serializedVersion: 2
+      Hash: 6c8188fe232fbf6207868477d1125374
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: Unit
+  - hash:
+      serializedVersion: 2
       Hash: 8e6ceabfd38a184413d69b7db56c89cc
     assemblyName: UnityEngine.TestRunner.dll
     namespaceName: UnityEngine.TestTools
     className: BeforeAfterTestCommandState
+  - hash:
+      serializedVersion: 2
+      Hash: ed70c711e04c44e918656f01cd37933f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: BattleHUD
   - hash:
       serializedVersion: 2
       Hash: c3d3430df9e3ea95e3e3d587961390fb
@@ -555,7 +653,7 @@ ScriptsOnlyBuild:
     className: Outline
   - hash:
       serializedVersion: 2
-      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+      Hash: 8477a8b4d1def403bf081df3f1305c83
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Dice
@@ -629,4 +727,4 @@ ScriptsOnlyBuild:
   scenePathNames:
   - Assets/Scenes/Menu.unity
   - Assets/Scenes/Game.unity
-  playerPath: C:/Users/kliens/Desktop/kek/Dungeons & Diddums.exe
+  playerPath: C:/Users/kliens/Desktop/deletemepls/Dungeons & Diddums.exe

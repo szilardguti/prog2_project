@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Game.unity
     guid: 8c02d55b3a1dd654484ea74d93c3321b
+  - enabled: 1
+    path: Assets/Scenes/BubblePop.unity
+    guid: 1ff26e88e963dbc47bc827f52cf51bbf
   m_configObjects: {}

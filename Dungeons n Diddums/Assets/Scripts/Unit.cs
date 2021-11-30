@@ -8,8 +8,9 @@ public class Unit : MonoBehaviour
 
     public int lvl;
     public int damage;
-    public int agility;
-    private int speed;
+    public int agility; private int speed;
+    public int protection; public bool isDefending;
+    public int specialLoad; public bool hasSpecial;
 
     public int maxHP;
     public int currHP;
@@ -19,6 +20,11 @@ public class Unit : MonoBehaviour
 
     public bool TakeDamage(int damg)
     {
+        if (isDefending) this.RemoveDefense();
+
+        if (damg < 0)
+            return false;
+
         currHP -= damg;
         if (currHP <= 0)
         {
@@ -47,5 +53,17 @@ public class Unit : MonoBehaviour
     public void ReturnTurn()
     {
         speed += 20;
+    }
+
+    public void SetDefense()
+    {
+        isDefending = true;
+        protection += 10;
+    }
+
+    public void RemoveDefense()
+    {
+        isDefending = false;
+        protection -= 10;
     }
 }

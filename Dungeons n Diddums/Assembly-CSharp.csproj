@@ -53,6 +53,9 @@
     <UnityVersion>2019.4.31f1</UnityVersion>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Assets\BubblePop\Bubble.cs" />
+    <Compile Include="Assets\BubblePop\BubblePopManager.cs" />
+    <Compile Include="Assets\MinigameInterface.cs" />
     <Compile Include="Assets\Scripts\BattleHUD.cs" />
     <Compile Include="Assets\Scripts\BattleOrderManager.cs" />
     <Compile Include="Assets\Scripts\BattleSystem.cs" />
@@ -63,6 +66,7 @@
     <Compile Include="Assets\Scripts\ManageBattleStations.cs" />
     <Compile Include="Assets\Scripts\Player1Attack.cs" />
     <Compile Include="Assets\Scripts\SelectBattleStation.cs" />
+    <Compile Include="Assets\Scripts\SpecialButton.cs" />
     <Compile Include="Assets\Scripts\Unit.cs" />
   </ItemGroup>
   <ItemGroup>
