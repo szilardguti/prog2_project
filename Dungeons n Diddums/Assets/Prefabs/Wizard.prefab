@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 227806507933541974}
   - component: {fileID: 227806507933541975}
   - component: {fileID: 227806507933541969}
+  - component: {fileID: 3144087164605579763}
   m_Layer: 0
   m_Name: Wizard
   m_TagString: Untagged
@@ -95,11 +96,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8dc2af4c41089014d8b25e3df7c9ee58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myAnimator: {fileID: 3144087164605579763}
   unitName: Wizard
   lvl: 99
   damage: 9
   agility: 6
+  protection: 0
+  isDefending: 0
+  specialLoad: 0
+  hasSpecial: 0
   maxHP: 60
   currHP: 60
   isDead: 0
   isHero: 1
+--- !u!95 &3144087164605579763
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 227806507933541973}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 4be5e7da54542ec42869beb6e1ad2c17, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

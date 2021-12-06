@@ -181,7 +181,7 @@ public class BattleSystem : MonoBehaviour
         foreach (object o in obj)
         {
             GameObject g = (GameObject)o;
-            if(g.scene.name == "Game" && g.name != "BattleSystem")
+            if(g.scene.name == "Game" && g.name != "BattleSystem" && g.name != "Music")
             {
                 objectsInGame.Add(g);
                 g.SetActive(false);
@@ -205,15 +205,19 @@ public class BattleSystem : MonoBehaviour
 
         yield return new WaitForSeconds(1.5f);
 
+        onTurnUnit.myAnimator.SetTrigger("doAttack");
+
         bool isDead = enemyUnit.TakeDamage(myDice.diceResult + playerUnit.damage - enemyUnit.protection + specialDamage);
         specialDamage = 0;
         battleStationManager.RemoveShieldFrom(enemyUnit);
 
         HUDs[correctIndex].SetHP(enemyUnit.currHP);
+        enemyUnit.myAnimator.SetTrigger("doHurt");
 
         if (isDead)
         {
             HUDs[correctIndex].NullHP();
+            enemyUnit.myAnimator.SetBool("isDead", true);
 
             battleOrderManager.UnitDied(enemyUnit);
 
@@ -265,14 +269,18 @@ public class BattleSystem : MonoBehaviour
 
         int correctIndex = Units.IndexOf(playerUnit);
 
+        enemyUnit.myAnimator.SetTrigger("doAttack");
+
         bool isDead = playerUnit.TakeDamage(myDice.diceResult + enemyUnit.damage - playerUnit.protection);
         battleStationManager.RemoveShieldFrom(playerUnit);
 
         HUDs[correctIndex].SetHP(playerUnit.currHP);
+        playerUnit.myAnimator.SetTrigger("doHurt");
 
         if (isDead)
         {
             HUDs[correctIndex].NullHP();
+            playerUnit.myAnimator.SetBool("isDead", true);
 
             battleOrderManager.UnitDied(playerUnit);
 
@@ -362,6 +370,12 @@ public class BattleSystem : MonoBehaviour
             o.SetActive(true);
         }
         objectsInGame.Clear();
+
+        foreach (Unit unit in Units)
+        {
+            if (unit.isDead)
+                unit.myAnimator.SetBool("isDead", true);
+        }
 
         specialDamage = BubblePopManager.specialDamage;
         StartCoroutine("PlayerAttack");
